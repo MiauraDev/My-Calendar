@@ -13,7 +13,7 @@ export function initDialog(name) {
         dialogElement.close();
       })
       .catch((error) => {
-        console.error("Finish dialog animation promise failed", error);
+        console.error("Finalizar la animación del diálogo falló", error);
       });
   }
 
@@ -35,6 +35,7 @@ export function initDialog(name) {
   });
 
   return {
+    dialogElement,
     open() {
       dialogElement.showModal();
     },
