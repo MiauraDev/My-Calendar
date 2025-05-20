@@ -36,9 +36,16 @@ function formIntoEvent(formElement) {
   const endTime = formData.get("end-time");
   const color = formData.get("color");
 
+  const dateParts = date.split("-"); 
+  const adjustedDate = new Date(
+    Number(dateParts[0]),
+    Number(dateParts[1]) - 1,
+    Number(dateParts[2]) 
+  );
+
   const event = {
     title,
-    date: new Date(date),
+    date: adjustedDate,
     startTime: Number.parseInt(startTime, 10),
     endTime: Number.parseInt(endTime, 10),
     color
