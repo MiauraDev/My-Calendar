@@ -8,7 +8,7 @@ export function initToaster(parent) {
 
   return {
     success(message) {
-      showToast(toasterElement, message, "exito");
+      showToast(toasterElement, message, "success");
     },
     error(message) {
       showToast(toasterElement, message, "error");
