@@ -1,6 +1,6 @@
 const eventTemplateElement = document.querySelector("[data-template='event']");
 
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
+const dateFormatter = new Intl.DateTimeFormat("es-ES", {
   hour: "numeric",
   minute: "numeric"
 });
@@ -45,6 +45,16 @@ function initEvent(event) {
   eventTitleElement.textContent = event.title;
   eventStartTimeElement.textContent = dateFormatter.format(startDate);
   eventEndTimeElement.textContent = dateFormatter.format(endDate);
+
+  eventElement.addEventListener("click", () => {
+    eventElement.dispatchEvent(new CustomEvent("event-click", {
+      detail: {
+        event,
+      },
+      bubbles: true
+    }));
+  });
+
 
   return eventElement;
 }
