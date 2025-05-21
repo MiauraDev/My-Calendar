@@ -2,9 +2,36 @@ import { isTheSameDay } from "./date.js";
 
 export function initEventStore() {
   document.addEventListener("event-create", (event) => {
-    const createdEvent = event.detail.event;
+    const createdEvent = { ...event.detail.event };
+
+    createdEvent.date.setDate(createdEvent.date.getDate() + 1);
+
     const events = getEventsFromLocalStorage();
-    events.push(createdEvent)
+    events.push(createdEvent);
+    saveEventsIntoLocalStorage(events);
+
+    document.dispatchEvent(new CustomEvent("events-change", {
+      bubbles: true
+    }));
+  });
+
+  document.addEventListener("event-delete", (event) => {
+    const deletedEvent = event.detail.event;
+    const events = getEventsFromLocalStorage().filter((event) => {
+      return event.id !== deletedEvent.id;
+    });
+    saveEventsIntoLocalStorage(events);
+
+    document.dispatchEvent(new CustomEvent("events-change", {
+      bubbles: true
+    }));
+  });
+
+  document.addEventListener("event-edit", (event) => {
+    const editedEvent = event.detail.event;
+    const events = getEventsFromLocalStorage().map((event) => {
+      return event.id === editedEvent.id ? editedEvent : event;
+    });
     saveEventsIntoLocalStorage(events);
 
     document.dispatchEvent(new CustomEvent("events-change", {
@@ -25,14 +52,14 @@ export function initEventStore() {
 function saveEventsIntoLocalStorage(events) {
   const safeToStringifyEvents = events.map((event) => ({
     ...event,
-    date: `${event.date.getFullYear()}-${event.date.getMonth() + 1}-${event.date.getDate()}`
+    date: event.date.toISOString()
   }));
 
   let stringifiedEvents;
   try {
     stringifiedEvents = JSON.stringify(safeToStringifyEvents);
   } catch (error) {
-    console.error("Error en la cadena de eventos", error);
+    console.error("Stringify events failed", error);
   }
 
   localStorage.setItem("events", stringifiedEvents);
@@ -48,7 +75,7 @@ function getEventsFromLocalStorage() {
   try {
     parsedEvents = JSON.parse(localStorageEvents);
   } catch (error) {
-    console.error("Error al analizar eventos", error);
+    console.error("Parse events failed", error);
     return [];
   }
 

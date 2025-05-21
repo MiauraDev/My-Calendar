@@ -7,13 +7,13 @@ export function initDialog(name) {
   function close() {
     dialogElement.classList.add("dialog--closing");
 
-    waitUntilAnimationsFinish(dialogElement)
+    return waitUntilAnimationsFinish(dialogElement)
       .then(() => {
         dialogElement.classList.remove("dialog--closing");
         dialogElement.close();
       })
       .catch((error) => {
-        console.error("Finalizar la animación del diálogo falló", error);
+        console.error("Finish dialog animation promise failed", error);
       });
   }
 
@@ -40,7 +40,7 @@ export function initDialog(name) {
       dialogElement.showModal();
     },
     close() {
-      close();
+      return close();
     }
   };
 }

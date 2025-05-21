@@ -87,10 +87,9 @@ export function eventTimeToDate(event, eventTime) {
     eventTime
   );
 }
-
 export function validateEvent(event) {
   if (event.startTime >= event.endTime) {
-    return "La Hora fin del evento debe ser posterior a la Hora inicio.";
+    return "La Hora de fin del evento debe ser posterior a la Hora inicio.";
   }
 
   return null;
@@ -103,4 +102,8 @@ export function adjustDynamicEventMaxLines(dynamicEventElement) {
   const maxTitleLines = Math.floor((availableHeight - lineHeight - padding) / lineHeight);
 
   dynamicEventElement.style.setProperty("--event-title-max-lines", maxTitleLines);
+}
+
+export function generateEventId() {
+  return Date.now();
 }

@@ -4,6 +4,14 @@ export function initNotifications() {
   const toaster = initToaster(document.body);
 
   document.addEventListener("event-create", () => {
-    toaster.success("El evento ha sido creado");
+    toaster.success("Evento creado");
+  });
+
+  document.addEventListener("event-delete", () => {
+    toaster.success("Evento eliminado");
+  });
+
+  document.addEventListener("event-edit", () => {
+    toaster.success("Evento editado");
   });
 }

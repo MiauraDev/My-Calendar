@@ -24,7 +24,7 @@
         <span class="sidebar__title">My Calendar</span>
       </div>
 
-       <button class="button button--primary button--lg" data-event-create-button>Crear Evento</button>
+      <button class="button button--primary button--lg" data-event-create-button>Crear Evento</button>
     </div>
     <main class="main">
       <div class="nav">
@@ -84,6 +84,7 @@
             <option value="week">Semana</option>
             <option value="month" selected>Mes</option>
           </select>
+
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="select__icon">
             <path d="m6 9 6 6 6-6" />
@@ -99,7 +100,7 @@
     <form class="form" data-event-form>
       <div class="dialog__wrapper">
         <div class="dialog__header">
-          <h2 class="dialog__title">Crear evento</h2>
+          <h2 class="dialog__title" data-dialog-title></h2>
           <button class="button button--icon button--secondary" type="button" data-dialog-close-button>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -112,14 +113,15 @@
 
         <div class="dialog__content">
           <div class="form__fields">
+            <input type="hidden" id="id" name="id" />
             <div class="form__field">
               <label class="form__label" for="title">Titulo</label>
-              <input class="input input--fill" id="title" name="title" type="text" placeholder="Ingresar titulo del evento"
+              <input class="input input--fill" id="title" name="title" type="text" placeholder="Titulo del evento"
                 required autofocus />
             </div>
 
             <div class="form__field">
-              <label class="form__label" for="date">Date</label>
+              <label class="form__label" for="date">Fecha</label>
               <input class="input input--fill" id="date" name="date" type="date" required />
             </div>
 
@@ -350,6 +352,33 @@
     </div>
   </dialog>
 
+  <dialog class="dialog" data-dialog="event-delete">
+    <div class="dialog__wrapper">
+      <div class="dialog__header">
+        <h2 class="dialog__title">Eliminar Evento</h2>
+
+        <button class="button button--icon button--secondary" data-dialog-close-button autofocus>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="button__icon">
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="dialog__content">
+        <p>¿Estas seguro que quieres eliminar? <strong data-event-delete-title></strong>?</p>
+      </div>
+
+      <div class="dialog__footer">
+        <div class="dialog__actions">
+          <button class="button button--secondary" data-dialog-close-button>Cancelar</button>
+          <button class="button button--danger" data-event-delete-button>Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
   <template data-template="month-calendar">
     <div class="month-calendar" data-month-calendar>
       <ul class="month-calendar__day-of-week-list">
@@ -361,8 +390,9 @@
         <li class="month-calendar__day-of-week">VI</li>
         <li class="month-calendar__day-of-week">SA</li>
       </ul>
-    <div class="month-calendar__day-list-wrapper">
-        <ul class="month-calendar__day-list" data-month-calendar-day-list  data-calendar-scrollable>
+
+      <div class="month-calendar__day-list-wrapper">
+        <ul class="month-calendar__day-list" data-month-calendar-day-list data-calendar-scrollable>
         </ul>
       </div>
     </div>
