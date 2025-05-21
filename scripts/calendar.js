@@ -9,21 +9,15 @@ export function initCalendar(eventStore) {
   let selectedDate = today();
 
   function refreshCalendar() {
-    const calendarScrollableElement = calendarElement.querySelector("[data-calendar-scrollable]");
-
-    const scrollTop = calendarScrollableElement === null ? 0 : calendarScrollableElement.scrollTop;
-
     calendarElement.replaceChildren();
 
     if (selectedView === "month") {
       initMonthCalendar(calendarElement, selectedDate, eventStore);
     } else if (selectedView === "week") {
-      initWeekCalendar(calendarElement, selectedDate, eventStore, false);
+       initWeekCalendar(calendarElement, selectedDate, eventStore, false);
     } else {
-      initWeekCalendar(calendarElement, selectedDate, eventStore, true);
+       initWeekCalendar(calendarElement, selectedDate, eventStore, true);
     }
-
-    calendarElement.querySelector("[data-calendar-scrollable]").scrollTo({ top: scrollTop });
   }
 
   document.addEventListener("view-change", (event) => {
